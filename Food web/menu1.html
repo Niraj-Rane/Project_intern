@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Restaurant Menu</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="menu.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center my-4">Restaurant Menu</h1>
+
+    <!-- Dynamic sections -->
+    <h2>Soups</h2>
+    <div id="soups-items" class="row mb-5"></div>
+
+    <h2>Veg Starters</h2>
+    <div id="veg-starters-items" class="row mb-5"></div>
+
+    <h2>Non-Veg Starters</h2>
+    <div id="nonveg-starters-items" class="row mb-5"></div>
+
+    <h2>Fish & Sea Food</h2>
+    <div id="fish-seafood-items" class="row mb-5"></div>
+
+    <h2>Salads</h2>
+    <div id="salads-items" class="row mb-5"></div>
+
+    <h2>Main Course</h2>
+    <div id="main-course-items" class="row mb-5"></div>
+
+    <h2>Noodles</h2>
+    <div id="noodles-items" class="row mb-5"></div>
+
+    <h2>Desserts</h2>
+    <div id="desserts-items" class="row mb-5"></div>
+
+    <!-- Cart -->
+    <h2 class="mt-5">Cart</h2>
+    <ul id="cart" class="list-group mb-3"></ul>
+    <p><strong>Total: $<span id="total-price">0.00</span></strong></p>
+    <button id="checkout" class="btn btn-success">Checkout</button>
+
+    <!-- Order Summary -->
+    <h2 class="mt-5">Order Summary</h2>
+    <div id="order-summary" class="border p-3" style="display: none;"></div>
+    <button id="export-pdf" class="btn btn-primary mt-4" style="display: none;">Export to PDF</button>
+  </div>
+
+  <script>
+    const menuItems = [
+      // Soups
+      { name: "Tomato Basil Soup", price: 4.49, category: "soups" },
+      { name: "Hot & Sour Soup", price: 4.99, category: "soups" },
+      { name: "Manchow Soup", price: 4.99, category: "soups" },
+      { name: "Sweet Corn Soup", price: 5.49, category: "soups" },
+      { name: "Cream of Mushroom", price: 5.99, category: "soups" },
+
+      // Veg Starters
+      { name: "Paneer Tikka", price: 6.99, category: "veg-starters" },
+      { name: "Veg Spring Rolls", price: 5.99, category: "veg-starters" },
+      { name: "Cheese Corn Balls", price: 6.49, category: "veg-starters" },
+      { name: "Crispy Chilli Potato", price: 6.99, category: "veg-starters" },
+      { name: "Stuffed Mushrooms", price: 7.49, category: "veg-starters" },
+
+      // Non-Veg Starters
+      { name: "Chicken Tikka", price: 7.99, category: "nonveg-starters" },
+      { name: "Mutton Seekh Kebab", price: 8.49, category: "nonveg-starters" },
+      { name: "Chicken Lollipop", price: 6.99, category: "nonveg-starters" },
+      { name: "Tandoori Chicken", price: 8.99, category: "nonveg-starters" },
+      { name: "Chilli Chicken", price: 7.99, category: "nonveg-starters" },
+
+      // Fish & Sea Food
+      { name: "Grilled Prawns", price: 5.99, category: "fish-seafood" },
+      { name: "Fish Tikka", price: 6.49, category: "fish-seafood" },
+      { name: "Butter Garlic Prawns", price: 8.99, category: "fish-seafood" },
+      { name: "Fish Fingers", price: 10.99, category: "fish-seafood" },
+      { name: "Goan Fish Curry", price: 12.99, category: "fish-seafood" },
+
+      // Salads
+      { name: "Greek Salad", price: 5.99, category: "salads" },
+      { name: "Caesar Salad", price: 6.49, category: "salads" },
+      { name: "Fruit Salad", price: 8.99, category: "salads" },
+      { name: "Sprout Salad", price: 10.99, category: "salads" },
+      { name: "Russian Salad", price: 12.99, category: "salads" },
+
+      // Main Course
+      { name: "Paneer Butter Masala", price: 10.99, category: "main-course" },
+      { name: "Chicken Curry", price: 11.49, category: "main-course" },
+      { name: "Dal Makhani", price: 9.99, category: "main-course" },
+      { name: "Veg Biryani", price: 8.99, category: "main-course" },
+      { name: "Rogan Josh", price: 12.49, category: "main-course" },
+
+      // Noodles
+      { name: "Veg Hakka Noodles", price: 7.99, category: "noodles" },
+      { name: "Chicken Noodles", price: 8.49, category: "noodles" },
+      { name: "Schezwan Noodles", price: 8.99, category: "noodles" },
+      { name: "Egg Noodles", price: 7.49, category: "noodles" },
+      { name: "Chilli Garlic Noodles", price: 9.49, category: "noodles" },
+
+      // Desserts
+      { name: "Gulab Jamun", price: 3.49, category: "desserts" },
+      { name: "Chocolate Brownie", price: 4.99, category: "desserts" },
+      { name: "Ice Cream Sundae", price: 5.49, category: "desserts" },
+      { name: "Rasmalai", price: 4.49, category: "desserts" },
+      { name: "Mango Mousse", price: 4.99, category: "desserts" }
+    ];
+    const cart = [];
+
+    function displayMenuItems() {
+      menuItems.forEach((item, index) => {
+        const itemDiv = document.createElement("div");
+        itemDiv.classList.add("col-md-4", "mb-4");
+        itemDiv.innerHTML = `
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">${item.name}</h5>
+              <p class="card-text">$${item.price.toFixed(2)}</p>
+              <input type="number" id="quantity-${index}" class="form-control" value="1" min="1">
+              <button class="btn btn-primary mt-2" onclick="addToCart(${index})">Add to Cart</button>
+            </div>
+          </div>
+        `;
+        const categoryContainer = document.getElementById(`${item.category}-items`);
+        categoryContainer.appendChild(itemDiv);
+      });
+    }
+
+    function addToCart(index) {
+      const quantity = parseInt(document.getElementById(`quantity-${index}`).value);
+      if (quantity <= 0) return;
+      const item = menuItems[index];
+      const cartItem = cart.find(ci => ci.name === item.name);
+      if (cartItem) {
+        cartItem.quantity += quantity;
+      } else {
+        cart.push({ ...item, quantity });
+      }
+      updateCart();
+    }
+
+    function updateCart() {
+      const cartList = document.getElementById("cart");
+      cartList.innerHTML = "";
+      let total = 0;
+      cart.forEach(item => {
+        total += item.price * item.quantity;
+        const listItem = document.createElement("li");
+        listItem.classList.add("list-group-item");
+        listItem.innerHTML = `${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}
+          <button class='btn btn-danger btn-sm float-end' onclick='removeFromCart("${item.name}")'>Remove</button>`;
+        cartList.appendChild(listItem);
+      });
+      document.getElementById("total-price").innerText = total.toFixed(2);
+    }
+
+    function removeFromCart(itemName) {
+      const index = cart.findIndex(item => item.name === itemName);
+      if (index !== -1) {
+        cart.splice(index, 1);
+        updateCart();
+      }
+    }
+
+    document.getElementById("checkout").addEventListener("click", () => {
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+      } else {
+        displayOrderSummary();
+      }
+    });
+
+    function displayOrderSummary() {
+      const orderSummary = document.getElementById("order-summary");
+      orderSummary.innerHTML = "<h3>Order Summary</h3>";
+      cart.forEach(item => {
+        orderSummary.innerHTML += `<p>${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}</p>`;
+      });
+      orderSummary.innerHTML += `<p><strong>Total: $${document.getElementById("total-price").innerText}</strong></p>`;
+      orderSummary.style.display = "block";
+      document.getElementById("export-pdf").style.display = "inline-block";
+    }
+
+    document.getElementById("export-pdf").addEventListener("click", () => {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.setFontSize(18);
+      doc.text("Order Summary", 105, 20, null, null, 'center');
+      doc.setFontSize(12);
+      let y = 30;
+      cart.forEach(item => {
+        doc.text(`${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`, 10, y);
+        y += 10;
+      });
+      doc.setFontSize(14);
+      doc.text(`Total: $${document.getElementById("total-price").innerText}`, 10, y + 10);
+      doc.line(10, y + 20, 200, y + 20);
+      doc.save("order_summary.pdf");
+    });
+
+    displayMenuItems();
+  </script>
+</body>
+</html>

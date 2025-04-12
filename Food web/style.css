@@ -1,0 +1,215 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+  }
+  
+  /* Navbar */
+  .navbar {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-brand img {
+    height: 60px;
+  }
+  
+  .navbar-nav .nav-link {
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .navbar-nav .nav-link:hover {
+    color: #007bff;
+  }
+  
+  /* Header Section */
+  header {
+    height: 100vh;
+    background: url('header-bg.jpg') center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  header h1 {
+    font-size: 3rem;
+    font-weight: bold;
+  }
+  
+  header h3 {
+    font-size: 1.5rem;
+  }
+  
+  header .btn {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 1.2rem;
+  }
+  
+  /* Why Choose Us Section */
+  #whyus h2 {
+    font-weight: bold;
+    text-align: center;
+  }
+
+  #whyus .col-md-4 {
+    padding: 20px;
+  }
+  
+  #whyus img {
+    width: 80px;
+    margin-bottom: 15px;
+  }
+
+  .small-img{
+    height: 50px;
+  }
+
+/* Section title styling */
+#explore_menu h3 {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+/* Card styling */
+#explore_menu .menu-card {
+  background-color: #fdf1e7;
+  border-radius: 20px;
+  text-align: center;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Hover effect */
+#explore_menu .menu-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Image styling */
+#explore_menu .menu-card img {
+  border-radius: 10px;
+  height: 180px;
+  object-fit: cover;
+  width: 100%;
+}
+
+/* Category name styling */
+#explore_menu .menu-card h5 {
+  margin-top: 15px;
+  color: #f39c12; 
+  font-weight: 600;
+}
+
+/* "View all" link styling */
+#explore_menu .menu-card a {
+  color: #f39c12;
+  text-decoration: none;
+  font-size: 14px;
+  display: block;
+  margin-top: 5px;
+}
+
+#explore_menu .menu-card a:hover {
+  text-decoration: underline;
+}
+
+  
+  /* Delivery Section */
+  #delivery {
+    background-color: #f1f1f1;
+  }
+  
+  #delivery h3 {
+    font-size: 28px;
+    font-weight: 700;
+  }
+  
+  #delivery p {
+    font-size: 16px;
+    color: #333;
+  }
+  
+  #delivery .btn-success {
+    padding: 10px 20px;
+    font-weight: 500;
+    font-size: 16px;
+  }
+
+  .promo-img {
+    display: inline-block;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  }
+  
+  
+  
+  
+  /* Redeem Section */
+  .redeem-section {
+    background: linear-gradient(to right, #f9e0c2, #fce5cd);
+  }
+  
+  .redeem-btn {
+    background-color: #ffc107;
+    color: #000;
+    font-weight: 500;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 5px;
+  }
+  
+  .redeem-btn:hover {
+    background-color: #e0a800;
+    color: #fff;
+  }
+  
+
+  /*  Follow us Section  */
+  .follow-us-section-heading {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .follow-us-icon-container {
+    background-color:#f1f1f1;
+    padding: 15px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+  }
+  
+  .follow-us-icon-container:hover {
+    background-color: #ffc107;
+  }
+  
+  .icon {
+    font-size: 24px;
+    color: #000;
+  }
+  
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    header h1 {
+      font-size: 2.5rem;
+    }
+  
+    header h3 {
+      font-size: 1.2rem;
+    }
+  
+    .navbar-nav {
+      text-align: center;
+    }
+
+
+  }
+  

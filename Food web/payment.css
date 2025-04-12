@@ -1,0 +1,13 @@
+#container {
+    text-align: center;
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background-color: #f9f9f9;
+}
+
+#card-details, #paypal-details, #upi-details {
+    text-align: left;
+}
